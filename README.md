@@ -17,7 +17,6 @@ The evaluation script should be programmed in such a way that it can be
 run from any directory.  Please follow the example of
 `kitti/eval_obj.py` on how to locate our own code and data.
 
-
 # Setup
 
 - Install dependencies: `sudo ./install_deps.sh`
