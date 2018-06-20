@@ -12,8 +12,10 @@ result_file = sys.argv[1]
 ROOT = os.path.abspath(os.path.dirname(__file__))
 
 kapp = os.path.abspath(os.path.join(ROOT, 'kapp.pl'))
+official = os.path.abspath(os.path.join(ROOT, 'evaluate-v1.1.py'))
 
 gt = os.path.abspath(os.path.join(ROOT, '../data/mura/train_labeled_studies.csv'))
+
 
 lookup = {}
 with open(gt, 'r') as f:
@@ -33,4 +35,5 @@ with open(result_file, 'r') as f, \
     pass
 
 print('evaluating %s lines' % C)
+sp.check_call('python %s temp_gt %s' % (official, result_file), shell=True)
 sp.check_call('%s temp_gt %s' % (kapp, result_file), shell=True)
