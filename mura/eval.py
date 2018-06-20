@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import sys
+import simplejson as json
 import subprocess as sp
 
 if len(sys.argv) != 2:
@@ -40,6 +41,7 @@ with open(result_file, 'r') as f, \
     pass
 
 print('evaluating %s lines' % C)
-sp.check_call('python %s temp_gt_xxxx %s' % (official, result_file), shell=True)
+st = sp.check_output('python %s temp_gt_xxxx %s' % (official, result_file), shell=True)
+print(json.dumps(json.loads(st), indent=4, sort_keys=True))
 sp.check_call('%s temp_gt_xxxx %s' % (kapp, result_file), shell=True)
 sp.check_call('rm temp_gt_xxxx', shell=True)
