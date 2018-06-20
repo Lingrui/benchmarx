@@ -16,6 +16,11 @@ official = os.path.abspath(os.path.join(ROOT, 'evaluate-v1.1.py'))
 
 gt = os.path.abspath(os.path.join(ROOT, '../data/mura/train_labeled_studies.csv'))
 
+if not os.path.isfile(gt):
+    print("Create a symbolic link benchmarx/data/mura which should point to MURA-v1.1")
+    print("You should see benchmarx/data/mura/train_labeled_studies.csv")
+    sys.exit(0)
+
 
 lookup = {}
 with open(gt, 'r') as f:
@@ -25,7 +30,7 @@ with open(gt, 'r') as f:
 
 C = 0
 with open(result_file, 'r') as f, \
-    open('temp_gt', 'w') as of:
+    open('temp_gt_xxxx', 'w') as of:
     for l in f:
         k, v = l.strip().split(',')
         assert k in lookup
@@ -35,5 +40,6 @@ with open(result_file, 'r') as f, \
     pass
 
 print('evaluating %s lines' % C)
-sp.check_call('python %s temp_gt %s' % (official, result_file), shell=True)
-sp.check_call('%s temp_gt %s' % (kapp, result_file), shell=True)
+sp.check_call('python %s temp_gt_xxxx %s' % (official, result_file), shell=True)
+sp.check_call('%s temp_gt_xxxx %s' % (kapp, result_file), shell=True)
+sp.check_call('rm temp_gt_xxxx', shell=True)
